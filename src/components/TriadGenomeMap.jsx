@@ -38,7 +38,7 @@ export default class TriadStackedMap extends Component {
 
             let values = _.map(subGenomes, (d) => dataPoint[d]);
 
-            return _.map(values, (d, i) => _.sum(values.slice(0, i + 1)))
+            return _.map(values, (d, i) => _.sum(values.slice(0, i + 1)));
 
         });
 
