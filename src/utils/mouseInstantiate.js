@@ -36,7 +36,6 @@ window.onload = async (event) => {
     gt.on('connect', id => { console.log(`UI is now connected to the server, (${id}).`) });
 
     gt.on('joined', (room, state, users) => {
-        debugger;
         console.log('Got whole new state:', state, users)
         // this could be us reconnecting, so check whether we 
         // know about other users before creating them
@@ -60,7 +59,7 @@ window.onload = async (event) => {
         // Disable the connect button since connection is successfull
         document.getElementById("usask-collab-button").disabled = "true";
         createUser(user_payload, id);
-        // startSendingTelepointer();
+        startSendingTelepointer();
     });
 
     gt.on('disconnected', (id, reason) => {
@@ -171,9 +170,12 @@ function createUserRepresentation(user, id) {
     // participant list
     createInParticipantList(user, id);
     // telepointer (for others)
-    if (id != gt.id) {
+    // if (id != gt.id) {
+
+    debugger;
+
         addTelepointer(user, id);
-    }
+    // }
 }
 
 function updateUserRepresentation(user, delta, id) {
