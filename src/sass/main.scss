@@ -53,3 +53,33 @@
         color: #ffffff;
     }
 }
+
+// Groupware Styling
+#participantTable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    align-items: center;
+    text-align: center;
+    margin: 10px auto;
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 2px 4px;
+        color: white;
+    }
+
+    .colorPicker {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .colorBox {
+        width: 40px;
+        height: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

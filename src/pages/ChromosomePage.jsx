@@ -155,35 +155,34 @@ class ChromosomePage extends Component {
                 {loader ?
                     <Loader className='loading-spinner' type='spin' height='100px' width='100px' color='#d6e5ff' delay={- 1} /> :
                     <div className='dashboard-inner-root text-center'>
-                        <FilterPanel
+                        {/* <FilterPanel
                             activeSubGenome={activeSubGenome}
                             subGenomes={subGenomes}
                             onSubGenomeChange={this.onSubGenomeChange}
-                            onSubGenomeChangeThreshold={this.onSubGenomeChangeThreshold} />
+                            onSubGenomeChangeThreshold={this.onSubGenomeChangeThreshold} /> */}
                         {chromosomeData.length > 0 ?
-                            <div>
+                            <div className='m-t-lg'>
                                 {/* code chunk to show tooltip*/}
                                 {isTooltipVisible && <Tooltip {...tooltipData} />}
-                                <TriadGenomeMap
+                                {/* <TriadGenomeMap
                                     genomeData={genomeData}
                                     subGenomes={subGenomes}
                                     chartScale={chartScale}
                                     chromosomes={chromosomes}
-                                    onChromosomeChange={this.onChromosomeChange} />
+                                    onChromosomeChange={this.onChromosomeChange} /> */}
                                 <ChromosomeMap
                                     subGenomes={subGenomes}
                                     hideChromosome={hideChromosome}
                                     activeChromosome={activeChromosome}
                                     chromosomeData={chromosomeData}
                                     chartScale={chartScale} />
-                                <SubRegionMap
+                                {/* <SubRegionMap
                                     subGenomes={subGenomes}
                                     hideChromosome={hideChromosome}
                                     activeChromosome={activeChromosome}
                                     subRegionData={innerTriadData}
-                                    chartScale={innerChartScale}
-                                />
-                                <GeneRefMap />
+                                    chartScale={innerChartScale}/>
+                                <GeneRefMap /> */}
                             </div>
                             : <h2>Sorry the data file is empty.</h2>}
                     </div>}

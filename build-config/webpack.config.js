@@ -16,7 +16,7 @@ module.exports = {
     devServer: {
         inline: true,
         contentBase: './dist',
-        port: 8080,
+        port: 80,
         compress: true,
         watchOptions: {
             ignored: [
