@@ -1,4 +1,4 @@
-import GT from '../utils/GT';
+import GT from './GT';
 
 // Code block to create text fields for username and room name
 // ------------------------------------------------------------
@@ -35,8 +35,9 @@ window.onload = async (event) => {
     // The "on-connected"" block is where we instantiate the user
     gt.on('connect', id => { console.log(`UI is now connected to the server, (${id}).`) });
 
-    gt.on('joined', (room, state, users) => {
+    gt.on('init_state', (state, users) => {
         console.log('Got whole new state:', state, users)
+
         // this could be us reconnecting, so check whether we 
         // know about other users before creating them
         for (const id in users) {
@@ -63,7 +64,6 @@ window.onload = async (event) => {
     });
 
     gt.on('disconnected', (id, reason) => {
-        console.log(`${id} has disconnected (${reason}).`)
         disconnectInParticipantList(id);
     });
 
@@ -90,17 +90,17 @@ window.onload = async (event) => {
     });
 
     gt.on('state_updated_unreliable', (id, payload_delta) => {
-        console.log('Got a stateupdateunreliable:', id, payload_delta)
-        if (payload_delta.lat && payload_delta.lng) {
-            moveMap(payload_delta.lat, payload_delta.lng, id);
+        console.log('Got a stateupdateunreliable:', id, payload_delta);
+        if (payload_delta.start && payload_delta.width) {
+            var target = document.getElementById('view-finder-window');
+            target.setAttribute('data-x', payload_delta.start);
+            target.style.webkitTransform = target.style.transform = 'translate(' + payload_delta.start + 'px,' + '0px)';
+            target.style.width = payload_delta.width + 'px';
         }
     });
 
     gt.on('pingpong', (latencyValue) => {
-        //console.log('Got a pong:', latencyValue);
-        gt.updateUserReliable({
-            latency: latencyValue
-        });
+        gt.updateUserReliable({ latency: latencyValue });
     });
 
 
@@ -170,12 +170,9 @@ function createUserRepresentation(user, id) {
     // participant list
     createInParticipantList(user, id);
     // telepointer (for others)
-    // if (id != gt.id) {
-
-    debugger;
-
+    if (id != gt.id) {
         addTelepointer(user, id);
-    // }
+    }
 }
 
 function updateUserRepresentation(user, delta, id) {
@@ -206,11 +203,7 @@ function updateUserRepresentation(user, delta, id) {
 // *****************************************************************************
 
 function createInParticipantList(user, id) {
-    var row;
-    var colorWidget;
-    var connectedIcon;
-
-    console.log("starting adding to participant list", user, id);
+    var row, colorWidget;
     // if user is already in the participant list, update rather than create
     if (userNameRowMap.has(user.name)) {
         updateUserRepresentation(user, id);
@@ -246,16 +239,13 @@ function createInParticipantList(user, id) {
         latencyCell.innerHTML = user.latency;
         connectedCell.innerHTML = 'Connected';
     }
-
-    console.log("finished adding to participant list", user, id, row);
 }
 
 function disconnectInParticipantList(id) {
     const user = userIDMap.get(id);
     const row = userNameRowMap.get(user.name);
     if (row != undefined) {
-        row.cells[3].children[0].setAttribute("src", "icons/disconnected3.png");
-        row.cells[3].children[0].setAttribute("title", "Disconnected");
+        row.cells[3].children.innerHTML = 'Disconnected';
     }
     // If it's us, change "Connect" button title 
     if (id == gt.id) {
@@ -267,8 +257,7 @@ function connectInParticipantList(id) {
     const user = userIDMap.get(id);
     const row = userNameRowMap.get(user.name);
     if (row != undefined) {
-        row.cells[3].children[0].setAttribute("src", "icons/connected3.png");
-        row.cells[3].children[0].setAttribute("title", "Connected");
+        row.cells[3].children.innerHTML = 'Connected';
     }
     // If it's us, change "Connect" button title 
     if (id == gt.id) {

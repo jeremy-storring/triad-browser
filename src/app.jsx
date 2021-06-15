@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import './utils/mouseInstantiate';
+import './utils/collaborate';
 
 
 //Root sass file for webpack to compile

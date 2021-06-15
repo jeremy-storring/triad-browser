@@ -20,17 +20,14 @@ class ChromosomeMap extends Component {
 
         var target = document.getElementById('view-finder-window');
         target.setAttribute('data-x', start);
-
         target.style.webkitTransform = target.style.transform = 'translate(' + start + 'px,' + '0px)';
-
         target.style.width = width + 'px';
-
-        this.drawChart()
+        this.drawChart();
     }
 
     componentDidUpdate() {
-         
-        this.drawChart() 
+
+        this.drawChart();
     }
 
     drawChart = () => {
@@ -160,7 +157,9 @@ function getStartAndEnd(target, chartScale) {
         width = 150;
     }
     const start = Math.abs(xPosition), end = start + width;
-    console.log(start, end);
+
+    gt.updateStateUnreliable({ start, width });
+
     return {
         'start': Math.round(chartScale.invert(start)),
         'end': Math.round(chartScale.invert(end))
