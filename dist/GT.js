@@ -145,7 +145,7 @@ class GT extends EventEmitter {
     constructor(server_ip) {
         super()
 
-        const socket = io("http://localhost:3000", {
+        const socket = io("http://ec2-35-183-47-186.ca-central-1.compute.amazonaws.com:8080", {
             autoConnect: false,
             reconnection: false
         })

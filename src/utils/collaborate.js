@@ -2,7 +2,7 @@ import GT from './GT';
 
 // Code block to create text fields for username and room name
 // ------------------------------------------------------------
-const SERVER_NAME = "http://localhost:3000/"
+const SERVER_NAME = "http://ec2-35-183-47-186.ca-central-1.compute.amazonaws.com:8080/"
 const COMMON_ROOM_NAME = "triad_browser";
 
 var btn = document.getElementById('btn');
