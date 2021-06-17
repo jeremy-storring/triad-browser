@@ -8,10 +8,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-// Set static folder
-app.use(express.static(path.join(__dirname, 'public')))
-
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 
 // the time at which unreliable messages will collapse and queue and then fire.
 const BURST_DELAY = 50 //ms, 20 tickrate
