@@ -2,7 +2,7 @@ import GT from './GT';
 
 // Code block to create text fields for username and room name
 // ------------------------------------------------------------
-const SERVER_NAME = "http://ec2-35-183-47-186.ca-central-1.compute.amazonaws.com:8080/"
+const SERVER_NAME = "https://usask-multi-sync.herokuapp.com"
 const COMMON_ROOM_NAME = "triad_browser";
 
 var btn = document.getElementById('btn');
@@ -293,9 +293,8 @@ function addTelepointer(user, id) {
 function updateTelepointer(teleX, teleY, id) {
     var user = userIDMap.get(id);
     var tele = userNameTeleMap.get(user.name);
-    //tele.style.transform = "translate(" + teleX + "px," + teleY + "px)";
-    tele.style.top = teleY + "px";
-    tele.style.left = teleX + "px";
+    tele.style.top = (teleY) + "px";
+    tele.style.left = (teleX * window.innerWidth) + "px";
 }
 
 function startSendingTelepointer() {
@@ -303,8 +302,9 @@ function startSendingTelepointer() {
         // FIX LATER: handle scrolling pages
         //let offX = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft;
         //let offY = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+
         gt.updateUserUnreliable({
-            x: e.clientX,
+            x: e.clientX / window.innerWidth,
             y: e.clientY
         });
     });
